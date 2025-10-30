@@ -1,0 +1,120 @@
+/* === Grundstil för sidan === */
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* === Spelplan === */
+#gameBoard {
+  display: grid;
+  gap: 10px;
+  margin: 20px auto;
+  justify-content: center;
+  max-width: 500px;
+}
+
+/* === Layout per nivå === */
+.layout-4x2 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.layout-5x2 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.layout-4x3 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.layout-4x4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* === Kortstorlek per nivå === */
+.card-size-large .card {
+  width: 120px;
+  height: 120px;
+}
+
+.card-size-medium .card {
+  width: 100px;
+  height: 100px;
+}
+
+.card-size-small .card {
+  width: 90px;
+  height: 90px;
+}
+
+/* === Kortstil === */
+.card {
+  background-color: #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 2px solid #444;
+  box-sizing: border-box;
+}
+
+/* === Dolda kort === */
+.color-hidden {
+  background-color: #ccc;
+}
+
+/* === Matchade kort === */
+.card.done {
+  border-color: #4CAF50;
+}
+
+/* === Hover-effekt === */
+.card.color-hidden:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transform: scale(1.05);
+}
+
+/* === Wiggle-animation vid fel matchning === */
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wiggle {
+  animation: wiggle 0.4s ease;
+}
+
+/* === Färgpreview ovanför spelplanen === */
+.colorPreview {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+/* === Popup-ruta === */
+.popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 2px solid #4CAF50;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  z-index: 1000;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Göm popup som standard === */
+.hidden {
+  display: none;
+}
