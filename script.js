@@ -13,10 +13,10 @@ const colors = [
 
 // === Nivålogik ===
 function getPairsForLevel(level) {
-  if (level >= 1 && level <= 4) return 4;      // 8 kort
-  if (level >= 5 && level <= 8) return 5;      // 10 kort
-  if (level >= 9 && level <= 12) return 6;     // 12 kort
-  return 8;                                    // 16 kort
+  if (level >= 1 && level <= 8) return 4;
+  if (level >= 9 && level <= 16) return 6;
+  if (level >= 17 && level <= 24) return 8;
+  return 4; // fallback om nivån är utanför intervallet
 }
 
 // === Uppdatera poängvisning ===
@@ -30,9 +30,31 @@ function createCard(color) {
   card.className = 'card color-hidden';
   card.setAttribute('data-color', color);
   card.style.backgroundColor = '';
+  card.textContent = '🎃'; // 👈 Frågetecken som standard
   card.addEventListener('click', onCardClicked);
   return card;
 }
+
+// === Fyrverkerier ===
+function showFireworks(callback) {
+  const duration = 2500;
+  const end = Date.now() + duration;
+
+  const interval = setInterval(() => {
+    confetti({
+      particleCount: 80,
+      spread: 90,
+      origin: { y: 0.6 },
+      colors: ['#ff0000', '#ffff00', '#00ff00', '#0000ff']
+    });
+
+    if (Date.now() > end) {
+      clearInterval(interval);
+      if (typeof callback === 'function') callback(); // 🔚 Kör nästa steg
+    }
+  }, 250);
+}
+
 
 // === Starta nivå ===
 function startLevel() {
@@ -101,6 +123,7 @@ function onCardClicked(e) {
   target.style.backgroundColor = color;
   target.classList.remove('color-hidden');
   target.classList.add('done');
+  target.textContent = ''; // 🧼 Ta bort frågetecknet när kortet visa
 
   if (!clickedCard) {
     clickedCard = target;
@@ -119,10 +142,12 @@ function onCardClicked(e) {
         clickedCard.classList.remove('done');
         clickedCard.classList.add('color-hidden');
         clickedCard.style.backgroundColor = '';
+        clickedCard.textContent = '🎃'; // 🔁 Lägg tillbaka frågetecknet
 
         target.classList.remove('done');
         target.classList.add('color-hidden');
         target.style.backgroundColor = '';
+        target.textContent = '🎃'; // 🔁 Lägg tillbaka frågetecknet
 
         clickedCard = null;
         preventClick = false;
@@ -132,13 +157,14 @@ function onCardClicked(e) {
       updateScoreDisplay();
       clickedCard = null;
 
-    if (matchesFound === totalPairs) {
-  showLevelPopup(level); // 👈 Visa popup
-
-  setTimeout(() => {
-    level++;
-    startLevel();
-  }, 2000); // ⏳ Vänta 2 sekunder innan nästa nivå
+if (matchesFound === totalPairs) {
+  showFireworks(() => {
+    showLevelPopup(level);
+    setTimeout(() => {
+      level++;
+      startLevel();
+    }, 1500); // ⏳ Starta nästa nivå efter popup
+  });
 }
 
 
@@ -151,7 +177,7 @@ function showLevelPopup(currentLevel) {
 
   setTimeout(() => {
     popup.classList.add('hidden');
-  }, 1500); // Visa popup i 1.5 sekunder
+  }, 2000); // Visa popup i 2 sekunder
 }
 
     }
