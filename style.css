@@ -4,17 +4,28 @@ body {
   text-align: center;
   margin: 20px;
   background-color: #f4f4f4;
-  color: #333;
+  color: #333333;
 }
+
+h1 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 5rem;
+  color:#fd9013;
+  text-shadow: 2px 2px 4px #333333;
+}
+
+
 
 /* === Spelplan === */
 #gameBoard {
   display: grid;
-  gap: 10px;
+  gap: 20px;
   margin: 20px auto;
   justify-content: center;
   max-width: 500px;
 }
+
+
 
 /* === Layout per nivå === */
 .layout-4x2 {
@@ -35,18 +46,18 @@ body {
 
 /* === Kortstorlek per nivå === */
 .card-size-large .card {
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
 }
 
 .card-size-medium .card {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 
 .card-size-small .card {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
 }
 
 /* === Kortstil === */
@@ -57,11 +68,26 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
   border: 2px solid #444;
   box-sizing: border-box;
+
+  /* 🆕 Centrera frågetecknet */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 🆕 Stil på frågetecknet */
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  user-select: none;
+
+  .card:active {
+  transform: scale(0.95) rotateY(10deg);
+}
 }
 
 /* === Dolda kort === */
 .color-hidden {
-  background-color: #ccc;
+  background-color: hwb(91 45% 25%);
 }
 
 /* === Matchade kort === */
